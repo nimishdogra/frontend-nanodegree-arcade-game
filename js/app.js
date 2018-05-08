@@ -66,17 +66,17 @@ Player.prototype.render = function() {
 };
 
 Player.prototype.handleInput = function(direction) {
-    if(direction == 'left' && this.x > 3) {
-        this.x -= 60;
+    if(direction == 'left' && this.x > 10) {
+        this.x -= 50;
     }
     if(direction == 'right' && this.x < 400) {
-        this.x += 60;
+        this.x += 50;
     }
-    if(direction == 'up' && this.y > 3) {
-        this.y -= 60;
+    if(direction == 'up' && this.y > 10) {
+        this.y -= 50;
     }
     if(direction == 'down' && this.y < 400) {
-        this.y += 60;
+        this.y += 50;
     }
 };
 
@@ -108,8 +108,22 @@ document.addEventListener('keyup', function(e) {
         37: 'left',
         38: 'up',
         39: 'right',
-        40: 'down'
+        40: 'down',
     };
-
     player.handleInput(allowedKeys[e.keyCode]);
 });
+
+var keys = {};
+window.addEventListener("keydown", function(e){
+        keys[e.keyCode] = true;
+        switch(e.keyCode){
+            case 37: case 39: case 38:  case 40: // Arrow keys
+            case 32: e.preventDefault(); break; // Space
+            default: break; // do not block other keys
+        }
+    },
+false);
+window.addEventListener('keyup',function(e){
+        keys[e.keyCode] = false;
+    },
+false);
